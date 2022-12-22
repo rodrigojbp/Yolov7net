@@ -1,7 +1,11 @@
 ﻿using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
 using Yolov7net.Extentions;
 using Yolov7net.Models;
 
