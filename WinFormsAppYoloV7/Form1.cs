@@ -33,7 +33,7 @@ namespace WinFormsAppYoloV7
 		private void Button2_Click(object sender, EventArgs e)
 		{
 			// init Yolov7 with onnx (include nms results)file path
-			using var yolo = new Yolov7("Assets/yolov7-tiny.onnx", false);
+			using var yolo = new Yolov7("Assets/yolov7-tiny.onnx", checkBoxUseGPU.Checked);
 			// setup labels of onnx model 
 			yolo.SetupYoloDefaultLabels();   // use custom trained model should use your labels like: yolo.SetupLabels(string[] labels)
 			using var image = Image.FromFile(fileName);
@@ -62,7 +62,7 @@ namespace WinFormsAppYoloV7
 			// init Yolov7 with onnx (include nms results)file path
 
 			//using var yolo = new Yolov5(@"E:\dev\yolo\dotnet\Yolov7net\WinFormsAppYoloV7\Assets\yolov7-tiny_640x640.onnx", false);
-			using var yolo = new Yolov7("Assets/yolov7-tiny_640x640.onnx", false);
+			using var yolo = new Yolov7("Assets/yolov7-tiny_640x640.onnx", checkBoxUseGPU.Checked);
 			// setup labels of onnx model 
 			yolo.SetupYoloDefaultLabels();   // use custom trained model should use your labels like: yolo.SetupLabels(string[] labels)
 			using var image = Image.FromFile(fileName);
