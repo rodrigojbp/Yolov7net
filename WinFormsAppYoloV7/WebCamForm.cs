@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace WinFormsAppYoloV7
 {
-	public partial class VideoForm : Form
+	public partial class WebCamForm : Form
 	{
         bool isCameraRunning = false;
         VideoCapture capture;
@@ -23,7 +23,7 @@ namespace WinFormsAppYoloV7
         bool Threadbusy = false;
         YoloRecorder yoloRecord;
 
-        public VideoForm()
+        public WebCamForm()
 		{
 			InitializeComponent();
 		}

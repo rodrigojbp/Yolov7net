@@ -1,7 +1,7 @@
 ﻿
 namespace WinFormsAppYoloV7
 {
-	partial class VideoForm
+	partial class WebCamForm
 	{
 		/// <summary>
 		/// Required designer variable.
