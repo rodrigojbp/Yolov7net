@@ -138,5 +138,10 @@ namespace Yolov7net
         {
             _inferenceSession.Dispose();
         }
-    }
+
+		public List<YoloPrediction> Predict(Image image, float conf_thres = 0, float iou_thres = 0)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

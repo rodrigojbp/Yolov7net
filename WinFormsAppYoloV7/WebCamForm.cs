@@ -28,7 +28,7 @@ namespace WinFormsAppYoloV7
 			InitializeComponent();
 		}
 
-        private void VideoForm_Load(object sender, EventArgs e)
+        private void WebCamForm_Load(object sender, EventArgs e)
         {
             lblStatus.Text = "";
             pictureBox1.Controls.Add(pictureBox2);
@@ -85,8 +85,6 @@ namespace WinFormsAppYoloV7
                 capture.Release();
                 capture.Dispose();
             }
-
-
         }
         private void YoloThreadMethod()
         {
@@ -96,7 +94,6 @@ namespace WinFormsAppYoloV7
             yoloRecord.Start(frame);
             pictureBox2.Image = yoloRecord.bitmap;
             Threadbusy = false;
-
         }
         private async void recordingTimer_Tick(object sender, EventArgs e)
         {
@@ -148,7 +145,6 @@ namespace WinFormsAppYoloV7
             {
                 StopCamera();
                 lblStatus.Text = "Recording ended.";
-
             }
         }
     }
