@@ -96,7 +96,7 @@ namespace WinFormsAppYoloV7
 
         private void RecordingTimer_Tick(object sender, EventArgs e)
         {
-            if (capture.IsOpened())
+            if (capture != null && capture.IsOpened())
             {
                 try
                 {
@@ -109,9 +109,17 @@ namespace WinFormsAppYoloV7
                     }
                     if (frame != null)
                     {
-
-                        image = BitmapConverter.ToBitmap(frame);
-                        pictureBox1.Image = image;
+                        if (frame.Empty())
+                        {
+                            frame.Dispose();
+                            StopVideo();
+                            lblStatus.Text = "Finished.";
+                        }
+                        else
+                        {
+                            image = BitmapConverter.ToBitmap(frame);
+                            pictureBox1.Image = image;
+                        }
                     }
 
                 }
@@ -130,7 +138,7 @@ namespace WinFormsAppYoloV7
                 lblStatus.Text = "Starting...";
                 StartVideo();
                 recordingTimer.Enabled = true;
-                lblStatus.Text = "Recording...";
+                lblStatus.Text = "Playing...";
             }
             else
             {

@@ -47,10 +47,10 @@ namespace WinFormsAppYoloV7
 			this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
-			this.statusStrip.Location = new System.Drawing.Point(0, 511);
+			this.statusStrip.Location = new System.Drawing.Point(0, 539);
 			this.statusStrip.Name = "statusStrip";
 			this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
-			this.statusStrip.Size = new System.Drawing.Size(927, 22);
+			this.statusStrip.Size = new System.Drawing.Size(1008, 22);
 			this.statusStrip.TabIndex = 21;
 			this.statusStrip.Text = "statusStrip1";
 			// 
@@ -65,7 +65,7 @@ namespace WinFormsAppYoloV7
 			this.btnRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnRecord.BackColor = System.Drawing.Color.LightSteelBlue;
 			this.btnRecord.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnRecord.Location = new System.Drawing.Point(356, 444);
+			this.btnRecord.Location = new System.Drawing.Point(405, 469);
 			this.btnRecord.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.btnRecord.Name = "btnRecord";
 			this.btnRecord.Size = new System.Drawing.Size(206, 55);
@@ -83,7 +83,7 @@ namespace WinFormsAppYoloV7
 			this.pictureBox1.Location = new System.Drawing.Point(10, 7);
 			this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(905, 420);
+			this.pictureBox1.Size = new System.Drawing.Size(986, 448);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 22;
 			this.pictureBox1.TabStop = false;
@@ -102,7 +102,7 @@ namespace WinFormsAppYoloV7
 			this.pictureBox2.Location = new System.Drawing.Point(10, 7);
 			this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.Size = new System.Drawing.Size(905, 420);
+			this.pictureBox2.Size = new System.Drawing.Size(986, 448);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox2.TabIndex = 23;
 			this.pictureBox2.TabStop = false;
@@ -115,7 +115,7 @@ namespace WinFormsAppYoloV7
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(927, 533);
+			this.ClientSize = new System.Drawing.Size(1008, 561);
 			this.Controls.Add(this.statusStrip);
 			this.Controls.Add(this.btnRecord);
 			this.Controls.Add(this.pictureBox1);
