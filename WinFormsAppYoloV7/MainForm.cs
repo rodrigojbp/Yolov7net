@@ -101,9 +101,9 @@ namespace WinFormsAppYoloV7
 			{				
 				using (Mat imageOriginal = new Mat())
 				{
-					// read a single frame and convert the frame into a byte array					
-
-					while (videocapture.Read(imageOriginal)) {						
+					// read a single frame and convert the frame into a byte array
+					while (videocapture.IsOpened()) {
+						videocapture.Read(imageOriginal);
 						image = imageOriginal.Resize(new OpenCvSharp.Size(yoloWidth, yoloHeight));
 						imageInBytes = image.ToBytes();
 						Bitmap bitmap = ByteArrayToImage(imageInBytes);
@@ -124,6 +124,9 @@ namespace WinFormsAppYoloV7
 					}
 					
 				}
+
+				MessageBox.Show("Fim do processamento do video");
+
 			}
 
 					// conduct object detection and display the result
