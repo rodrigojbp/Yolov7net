@@ -36,7 +36,7 @@ namespace WinFormsAppYoloV7
                 var (x, y) = (prediction.Rectangle.X - 3, prediction.Rectangle.Y - 23);
 
                 graphics.DrawString($"{prediction.Label.Name} ({score})",
-                    new Font("Consolas", 16, GraphicsUnit.Pixel), new SolidBrush(prediction.Label.Color),
+                    new Font("Arial", 32, GraphicsUnit.Pixel), new SolidBrush(prediction.Label.Color),
                     new PointF(x, y));
             }
         }
