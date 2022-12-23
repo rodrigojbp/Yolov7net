@@ -114,6 +114,10 @@ namespace WinFormsAppYoloV7
                             frame.Dispose();
                             StopVideo();
                             lblStatus.Text = "Finished.";
+                            pictureBox1.Image = null;
+                            pictureBox2.Image = null;
+                            pictureBox1.Update();
+                            pictureBox2.Update();
                         }
                         else
                         {
