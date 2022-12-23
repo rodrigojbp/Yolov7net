@@ -1,25 +1,22 @@
-﻿using DirectShowLib;
-using OpenCvSharp;
+﻿using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using Yolov7net;
 
 namespace WinFormsAppYoloV7
 {
 	public partial class VideoForm : Form
 	{
-        bool isCameraRunning = false;
+        bool isVideoRunning = false;
         VideoCapture capture;
         Mat frame;
         Bitmap image;
         bool Threadbusy = false;
         YoloRecorder yoloRecord;
-        private string fileName = "";
+        string fileName = "";
         Boolean useGPU;
 
         public VideoForm(Boolean useGPU)
@@ -27,7 +24,6 @@ namespace WinFormsAppYoloV7
             InitializeComponent();
             this.useGPU = useGPU;
         }
-
         private void VideoForm_Load(object sender, EventArgs e)
         {
             lblStatus.Text = "";
@@ -39,24 +35,25 @@ namespace WinFormsAppYoloV7
 
         private void StartVideo()
         {
+            openFileDialog1.Filter =
+            "Videos (*.mp4;*.avi) | *.mp4; *.avi";
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
                 fileName = openFileDialog1.FileName;
-            }
+                DisposeVideoResources();
 
-            DisposeCameraResources();
+                isVideoRunning = true;
+                btnRecord.Text = "Stop";
 
-            isCameraRunning = true;
-            btnRecord.Text = "Stop";
-            
-            capture = new VideoCapture(fileName);
-            capture.Open(fileName);
+                capture = new VideoCapture(fileName);
+                capture.Open(fileName);
+            }            
         }
-
+        
         private void StopVideo()
         {
-            isCameraRunning = false;
+            isVideoRunning = false;
             btnRecord.Text = "Start";
 
             recordingTimer.Stop();
@@ -64,7 +61,8 @@ namespace WinFormsAppYoloV7
 
             DisposeCaptureResources();
         }
-        private void DisposeCameraResources()
+
+        private void DisposeVideoResources()
         {
             if (frame != null)
             {
@@ -76,6 +74,7 @@ namespace WinFormsAppYoloV7
                 image.Dispose();
             }
         }
+
         private void DisposeCaptureResources()
         {
             if (capture != null)
@@ -84,6 +83,7 @@ namespace WinFormsAppYoloV7
                 capture.Dispose();
             }
         }
+
         private void YoloThreadMethod()
         {
             Threadbusy = true;
@@ -123,13 +123,11 @@ namespace WinFormsAppYoloV7
             }
         }
 
-
         private void BtnRecord_Click(object sender, EventArgs e)
         {
-
-           if (!isCameraRunning)
+           if (!isVideoRunning)
             {
-                lblStatus.Text = "Starting recording...";
+                lblStatus.Text = "Starting...";
                 StartVideo();
                 recordingTimer.Enabled = true;
                 lblStatus.Text = "Recording...";
@@ -137,8 +135,7 @@ namespace WinFormsAppYoloV7
             else
             {
                 StopVideo();
-                lblStatus.Text = "Recording ended.";
-
+                lblStatus.Text = "Finished.";
             }
         }
 
@@ -146,6 +143,7 @@ namespace WinFormsAppYoloV7
 		{
             StopVideo();
 		}
+
         private static Bitmap ByteArrayToImage(byte[] source)
         {
             using (var ms = new MemoryStream(source))
@@ -153,70 +151,7 @@ namespace WinFormsAppYoloV7
                 return new Bitmap(ms);
             }
         }
-
-        private void OpenVideo()
-        {
-            openFileDialog1.Filter = "MP4|*.mp4";
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                fileName = openFileDialog1.FileName;
-            }
-            
-            using var yolo = new Yolov7("Assets/yolov7-tiny.onnx", useGPU);
-            yolo.SetupYoloDefaultLabels();
-            int yoloWidth = 608, yoloHeight = 608;
-            VideoCapture videocapture;
-            Mat image = new Mat();
-
-            byte[] imageInBytes = new byte[(int)(yoloWidth * yoloHeight * image.Channels())];
-
-            using (videocapture = new VideoCapture(fileName))
-            {
-                using (Mat imageOriginal = new Mat())
-                {
-                    while (videocapture.IsOpened())
-                    {
-                        videocapture.Read(imageOriginal);
-                        image = imageOriginal.Resize(new OpenCvSharp.Size(yoloWidth, yoloHeight));
-                        imageInBytes = image.ToBytes();
-                        Bitmap bitmap = ByteArrayToImage(imageInBytes);
-                        var predictions = yolo.Predict(bitmap);
-                        Graphics graphics = Graphics.FromImage(bitmap);
-                        foreach (var prediction in predictions)
-                        {
-                            double score = Math.Round(prediction.Score, 2);
-                            graphics.DrawRectangles(new Pen(prediction.Label.Color, 1), new[] { prediction.Rectangle });
-                            var (x, y) = (prediction.Rectangle.X - 3, prediction.Rectangle.Y - 23);
-                            graphics.DrawString($"{prediction.Label.Name} ({score})",
-                                            new Font("Arial", 32, GraphicsUnit.Pixel), new SolidBrush(prediction.Label.Color),
-                                            new PointF(x, y));
-                        }
-                        pictureBox1.Image = bitmap;
-                        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-                        pictureBox1.Refresh();
-                    }
-
-                }                
-            }
-
-            // conduct object detection and display the result
-            /*var items = yolowrapper.Detect(imageInBytes);
-			foreach (var item in items)
-			{
-				var x = item.X;
-				var y = item.Y;
-				var width = item.Width;
-				var height = item.Height;
-				var type = item.Type;  // class name of the object
-
-				// draw a bounding box for the detected object
-				// you can set different colors for different classes
-				Cv2.Rectangle(image, new OpenCvSharp.Rect(x, y, width, height), Scalar.Green, 3);
-			}*/
-
-            MessageBox.Show("End");
-        }
+        
     }
 }
 
